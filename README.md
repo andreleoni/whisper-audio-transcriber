@@ -85,14 +85,32 @@ fetch('http://localhost:5000/transcribe', {
 
 ### Whisper Models
 
+The application uses environment variables for configuration:
+
+- `WHISPER_BASE_MODEL`: Sets the Whisper model to use (default: "base")
+
 Available models (in order of increasing accuracy and resource usage):
 - `tiny`: Fastest, lowest accuracy
-- `base`: Good balance of speed and accuracy
+- `base`: Good balance of speed and accuracy (default if not specified)
 - `small`: Better accuracy, slower
 - `medium`: High accuracy, requires more resources
 - `large`: Best accuracy, highest resource usage
 
-To change the model, modify the `WHISPER_BASE_MODEL` environment variable in `docker-compose.yml` or set it before running the application.
+You can set the model in three ways:
+
+1. In docker-compose.yml:
+```yaml
+environment:
+  - WHISPER_BASE_MODEL=base
+```
+
+2. Environment variable:
+```bash
+export WHISPER_BASE_MODEL=small
+python app.py
+```
+
+3. If not set, the application will default to "base" model
 
 ## Error Handling
 
