@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  whisper-api:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=development
+      - WHISPER_BASE_MODEL=base # Available models: tiny, base, small, medium, large
