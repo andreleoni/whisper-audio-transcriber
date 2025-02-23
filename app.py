@@ -10,7 +10,16 @@ CORS(app, resources={r"/*": {
     "methods": ["GET", "POST", "PUT", "DELETE"]
 }})
 
-model = whisper.load_model(os.getenv("WHISPER_BASE_MODEL"))
+def get_model_name():
+    model_name = os.getenv("WHISPER_BASE_MODEL")
+    if model_name:
+        print(f"Using Whisper model: {model_name}")
+        return model_name
+    else:
+        print("WHISPER_BASE_MODEL not set, using default model: base")
+        return "base"
+
+model = whisper.load_model(get_model_name())
 
 @app.route('/transcribe', methods=['POST'])
 def transcribe_audio():
